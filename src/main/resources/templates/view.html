@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Found items</title>
+    <style>
+        table.tableClass th, table.tableClass td {
+            padding: 5px;
+        }
+        .panel {
+            color: black;
+        }
+        .admin {
+            color: coral;
+        }
+        .user {
+            color: blueviolet;
+        }
+        .default {
+            color: darkblue;
+        }
+        .row  {
+            font-style: italic;
+        }
+        .odd-row {
+            background-color: beige;
+        }
+        .even-row {
+            background-color: lightgray;
+        }
+    </style>
+    
+  </head>
+  <body>
+      <div th:switch="${role}" class="panel">
+          <div th:case="${T(com.example.lostitem.logIn.service.Role).ADMIN}" th:classappend="admin">
+              Admin's page
+          </div>
+          <div th:case="${T(com.example.lostitem.logIn.service.Role).USER}" th:classappend="user">
+              User's page
+          </div>
+          <div th:case="*">
+              Default case page
+          </div>
+      </div>
+<!--	<form action="/" method="GET">-->
+<!--        hello, <span th:text="${username}"></span>-->
+<!--        <input type="submit" value="Log out">-->
+      <form action="logoutGreeting" method="GET">
+          Hello, <span th:text="${username}"></span>
+          <input type="submit" value="Log out">
+    </form>
+	<form action="add" method="POST">
+		Add new item - name:
+		<input type="text" name = "addNewItemName">
+		 kewords:
+		<input type="text" name = "stringAddNewItemKeywords">
+		<input type="submit" value="Add">
+	</form>
+	<form action="delete" method="POST">
+		Delete item - ID:
+		<input type="text" name = "deleteItemID">
+		<input type="submit" value="Delete">
+	</form>
+    <div th:if="${noSuchItemToDelete} == true">No such item to delete</div>
+    <form action="view">
+		Find by keywords - kewords:
+		<input type="text" name = "stringSearchByKeywords">
+		<input type="submit" value="Find">
+	</form>
+	<a>Current keywords: </a>
+    <tr th:each="keyword : ${keywords}">
+        <td class="align-middle" th:text="${keyword}"></td>
+    </tr>
+	<span th:each="keyword, state : ${keywords}"></span><span th:text="${keyword}"></span>
+      <table border="1" class="tableClass">
+        <tr>
+          <th>No</th>
+          <th>Name</th>
+          <th>Founder username</th>
+          <th>keywords</th>
+        </tr>
+        <tr th:each="lostElement, state : ${lostElements}" class="row" th:classappend="${state.odd} ? 'odd-row' : 'even-row'">
+          <td th:utext="${lostElement.number}">No</td>
+          <td th:utext="${lostElement.name}">name</td>
+          <td th:utext="${lostElement.founderUsername}">founderUsername</td>
+          <td th:utext="${lostElement.keywords}">keywords</td>
+        </tr>
+    </table>
+  </body>
+</html> 
