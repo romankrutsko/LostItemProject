@@ -38,13 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .httpBasic();
-        http
-//                .formLogin()
-//                .loginPage("/view")
-//                .permitAll()
-//                .and()
-                .logout()
-                .logoutSuccessUrl("/logoutTest");
+        http.logout();
         http.csrf().disable();
         http
                 .headers()
