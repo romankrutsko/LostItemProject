@@ -32,10 +32,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/login**","/callback/", "/webjars/**", "/error**")
+                .antMatchers("/", "/login**","/callback/", "/webjars/**", "/error**", "/api/v1/**", "/swagger-ui/index.html#/", "/api-docs")
                 .permitAll()
-                .anyRequest()
-                .authenticated()
+//                .anyRequest()
+//                .authenticated()
                 .and()
                 .httpBasic();
         http.logout();
