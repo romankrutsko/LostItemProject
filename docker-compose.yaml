@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_USER: test
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./src/docker/database/init.sql:/docker-entrypoint-initdb.d/setup.sql
+    ports:
+      - 3306:3306
